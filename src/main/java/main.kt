@@ -20,7 +20,7 @@ fun main(args: Array<String>) {
     if (File(outputPath).exists()) {
         println("The specified output path '$outputPath' already exists.")
 
-        confirmation@while (true) {
+        confirmation@ while (true) {
             println("Do you want to continue? [y/n]: ")
 
             when (readLine()) {
@@ -48,13 +48,17 @@ fun main(args: Array<String>) {
     val figur = Figur(inputPath)
     val animation = figur.animation()
 
+    figur.faktorSetzen(1)
+
     val result = BufferedImage(animation[0].breiteN() * animation.size, animation[0].hoeheN(), BufferedImage.TYPE_INT_ARGB)
     val graphics = result.createGraphics()
 
     for (image in animation) {
-        image.zeichnen(graphics, false, false)
+        image.zeichnen(graphics, 0, 0, false, false)
         graphics.translate(animation[0].breiteN(), 0)
     }
 
     ImageIO.write(result, "png", File(outputPath))
+
+    System.exit(0)
 }
